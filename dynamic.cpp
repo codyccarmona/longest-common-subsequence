@@ -4,7 +4,7 @@
  *  Author: Cody Carmona
  *  Subject:
  *      This program accepts two input strings which contains file names. It then reads strings from these file names
- *          and finds the longest common subsequence betweeen them without memorization
+ *          and finds the longest common subsequence betweeen them with memorization
  */
 #include <string>
 #include <cstdlib>
@@ -12,50 +12,59 @@
 #include <iostream>
 #include <fstream>
 
-/* Copies LCS-LENGTH from textbook 15.4. Instead of using arrays and tables b and c, this uses 1 2D vector of integers
-    NOTE: We do not implement the memorized portion here (no arrows) */
-std::vector<std::vector<int>> LCS_LENGTH(std::string X, std::string Y){
+/* Used to represent the arrow portion of the memorized LCS_LENGTH algorithm */
+enum Direction{
+    UP,
+    LEFT,
+    UPLEFT,
+    NONE
+};
+
+/* Copies LCS-LENGTH from textbook 15.4. Instead of using arrays and tables b and c, this uses 1 2D vector of pairs
+    Note the pairs have their integer value as pair.first and the direction enum as pair.second */
+std::vector<std::vector<std::pair<int, Direction>>> LCS_LENGTH(std::string X, std::string Y){
     int m = X.size();
     int n = Y.size();
-    std::vector<std::vector<int>> cb(m + 1, std::vector<int>(n + 1, 0));
+    // Init 2D vector with all pairs that have integer value 0 and Direction value NONE
+    std::vector<std::vector<std::pair<int, Direction>>> cb(m + 1, std::vector<std::pair<int, Direction>>(n + 1, std::pair<int, Direction>(0, Direction::NONE)));
     for(int i = 1; i <= m; i++){
         for(int j = 1; j <= n; j++){
+            // If X[i] == Y[j]. Notice we subtract 1 whereas the textbook does not
             if(X[i - 1] == Y[j - 1]){
-                cb[i][j] = cb[i - 1][j - 1] + 1;
+                cb[i][j].first = cb[i - 1][j - 1].first + 1;
+                cb[i][j].second = Direction::UPLEFT;
             }
+            // Check if upper value is >=
             else if(cb[i - 1][j] >= cb[i][j- 1]){
-                cb[i][j] = cb[i - 1][j];
+                cb[i][j].first = cb[i - 1][j].first;
+                cb[i][j].second = Direction::UP;
             }
+            // Use left pair integer value
             else{
-                cb[i][j] = cb[i][j - 1];
+                cb[i][j].first = cb[i][j - 1].first;
+                cb[i][j].second = Direction::LEFT;
             }
         }
     }
     return cb;
 }
 
-/* Copies PRINT_LCS from textbook 15.4. Adjusted to work with the non-memorized substructure (no arrows)
-    Instead, it uses the optimal substructure to print LCS (exact match to structure used to build table) */
-void PRINT_LCS(std::vector<std::vector<int>> cb, std::string X, int i, int j){
-    // Base case
+
+/* Copies PRINT_LCS from textbook 15.4. Adjusted to work with 2d vector of pairs rather than array b */
+void PRINT_LCS(std::vector<std::vector<std::pair<int, Direction>>> cb, std::string X, int i, int j){
+    // base case
     if(i == 0 || j == 0)
         return;
-
-    int diagVal = cb[i - 1][j - 1]; // upper left value
-    int leftVal = cb[i][j - 1];     // left value
-    int upperVal = cb[i -1][j];     // upper value
-
-    // If upper left value is current value - 1 and upper left, left, and upper all match, then we found
-    //  a match. Print value and follow upper left element
-    if(cb[i][j] - 1 == diagVal && diagVal == leftVal && diagVal == upperVal){
+    // case in which we have a match, follow and print value
+    if(cb[i][j].second == Direction::UPLEFT){
         PRINT_LCS(cb, X, i - 1, j - 1);
         std::cout << X[i - 1];
     }
-    // Otherwise, is upper the same or bigger than left, follow it
-    else if(upperVal >= leftVal){
+    // otherwise, check if we can go up
+    else if(cb[i][j].second == Direction::UP){
         PRINT_LCS(cb, X, i - 1, j);
     }
-    // Default follow left value
+    // default go left
     else{
         PRINT_LCS(cb, X, i, j - 1);
     }
@@ -82,7 +91,7 @@ int main(int argc, char** argv){
     }
 
     // Build table
-    std::vector<std::vector<int>> cb = LCS_LENGTH(X, Y);
+    std::vector<std::vector<std::pair<int, Direction>>> cb = LCS_LENGTH(X, Y);
 
     // Print LCS
     PRINT_LCS(cb, X, X.size(), Y.size());

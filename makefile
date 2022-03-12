@@ -1,10 +1,10 @@
-all: memorized.exe dynamic.exe
+all: memoized.exe dynamic.exe
 
-memorized.exe: memorized.o
-	g++ -o memorized.exe memorized.o
-	rm memorized.o
-memorized.o: memorized.cpp
-	g++ -std=c++11 -Wall -Wextra -c memorized.cpp
+memoized.exe: memoized.o
+	g++ -o memoized.exe memoized.o
+	rm memoized.o
+memorized.o: memoized.cpp
+	g++ -std=c++11 -Wall -Wextra -c memoized.cpp
 
 dynamic.exe: dynamic.o
 	g++ -o dynamic.exe dynamic.o

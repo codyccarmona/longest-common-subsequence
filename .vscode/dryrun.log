@@ -1,5 +1,10 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory '/home/codycarmona/Documents/GitHub/longest-common-subsequence'
-make: Nothing to be done for 'all'.
+g++    -c -o memoized.o memoized.cpp
+g++ -o memoized.exe memoized.o
+rm memoized.o
+g++ -std=c++11 -Wall -Wextra -c dynamic.cpp
+g++ -o dynamic.exe dynamic.o
+rm dynamic.o
 make: Leaving directory '/home/codycarmona/Documents/GitHub/longest-common-subsequence'
  

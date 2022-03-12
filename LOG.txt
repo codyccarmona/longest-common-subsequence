@@ -2,11 +2,11 @@ Development log: Assignment 2
 Name: Cody Carmona
 
 Feb 23, 2022: 
-    1. Initialized working directory with dynamic.cpp, memorized.cpp, log.txt, and makefile (all empty)
-    2. Added the lines to the makefile to compile dynamic.cpp and memorized.cpp to produce matching name executables
+    1. Initialized working directory with dynamic.cpp, memoized.cpp, log.txt, and makefile (all empty)
+    2. Added the lines to the makefile to compile dynamic.cpp and memoized.cpp to produce matching name executables
 
-Feb 26, 2022 (Began memorized.cpp): 
-    1. Copied LCS_LENGTH and PRINT_LCS as in into memorized.cpp. Instead of arrays, I used a 2D vector of integers.
+Feb 26, 2022 (Began dynamic.cpp): 
+    1. Copied LCS_LENGTH and PRINT_LCS as provided in the text into dynamic.cpp. Instead of arrays, I used a 2D vector of integers.
     2. Defined an enum which will hold a DIRECTION value which represents the arrows. 
     3. Verified LCS-LENGTH and PRINT-LCS worked using a single 2D vector of integers by using the strings inside the textbook.
         I wasn't too worried about correctness here since it was a direct copy from the textbook which I know is correct. However,
@@ -17,29 +17,28 @@ Feb 26, 2022 (Began memorized.cpp):
         These changes produced the correct results
 
 Feb 27, 2022: 
-    1. Adjusted memorized.cpp to build both array b and c. However, rather than store as two separate tables, I changed my 2D vector   
+    1. Adjusted dynamic.cpp to build both array b and c. However, rather than store as two separate tables, I changed my 2D vector   
         data structure to hold pairs rather than integers. These pairs would have the integer value in pair.first and then the enum
         direction type as pair.second. Initially, the vector is filled with pairs of pair(0, Direction::NONE) so as to distinguish
         uninitialized pairs as well as skipping the initialization of row 0 and column 0 to all 0s. 
     2. Adjusted PRINT_LCS to accept 2D vector of pairs rather than integers
     3. Verified the produced 2d vector was correct (both values and arrows) using the strings provided in the textbook.
 
-Feb 28, 2022 (Finished memorized.cpp):
+Feb 28, 2022 (Finished dynamic.cpp):
     1. Added a new function called read_strings which accepts a string file name, opens said file, reads the line and then returns it
     2. Added two calls to read_strings inside main passed argv[1] and argv[2] which contain the command line values passed in
-    3. With a fully functioning memorized version in hand, I began testing by changing the strings inside the text files. It was at this time
+    3. With a fully functioning dynamic version in hand, I began testing by changing the strings inside the text files. It was at this time
         that I noticed my program produced incorrect output if I changed the strings inside the file. After much testing I learned it was because
         my program was using the first file string as string X and the second file string as string Y. This produced unexpected results because LCS_LENGTH
         expects X to be the longer string. In order to fix this, I added a check to ensure X is longer than Y. If not, I swapped the string values.
-    4. At this point, I was fully satsified with memorized.cpp so I copied it directly to dynamic.cpp
+    4. At this point, I was fully satsified with dynamic.cpp so I copied it directly to memoized.cpp
 
-Mar  11,  2022 (Started and finished dynamic.cpp):  
-    1. Formatted memorized.cpp to not use the memorization algorithm. This included removing the direction enum, changing my 2d vector of pairs back to a vector of integer
-    2. Changed LCS_LENGTH so it no longer adds element.second = Direction. Instead, it just adjusts the value of the integer based on the optimal substructure. This was a pretty
-        basic changed
-    3. PRINT_LCS was the bulk of the work for adjusting memorized to dynamic. It no longer had the arrows to know which way to go. This is a downgrade because now PRINT_LCS
-        has to determine which way to go. This took several adjustments and debugging before realizing the check is just the optimal substructure used to initialize the table.
-        Once I realized this and implemented it, it worked fine
-    4. Tested this using the same files and read_strings function. I verified it matched any output from memorized.cpp since I was much more confident in memorized.cpp'said
+Mar  11,  2022 (Started and finished memoized.cpp):  
+    1. Copied dynamic.cpp directly into memoized.cpp
+    2. Removed any code related to the direction enum. We will only be using integers in this approach.
+    3. Changed LCS_LENGTH so it now initializes the table with all -1 (to distinguish uninitialized elements) and then fills the table by calling MEMOIZED_LCS_LENGTH
+    3. MEMOIZED_LCS_LENGTH(c, X, Y, i, j) is a recursive function which returns the length of the current LCS. It no longer remembers and checks the values of the previous element. 
+        Instead, it finds the max length of the LCS using MEMOIZED_LCS_LENGTH recursively and then returning the maximum length.
+    4. Tested this using the same files and read_strings function. I verified it matched any output from dynamic.cpp since I was much more confident in dynamic.cpp's
         correctness since it almost exactly copied the book
     5. Copied everything to linprog, zipped it, verified compilation using linprogs g++ compiler, and then left it for submission.

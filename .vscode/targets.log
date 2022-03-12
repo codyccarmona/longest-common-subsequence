@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'memoized.o', needed by 'memoized.exe'.  Stop.
+ 
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Mar 11 14:32:03 2022
+# Make data base, printed on Fri Mar 11 23:01:03 2022
 
 # Variables
 
@@ -49,7 +51,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:62272
+JOURNAL_STREAM = 8:58944
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -67,11 +69,11 @@ USERNAME = codycarmona
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=a27ad272b0988684184f9a55622bf87e
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 1552
+MANAGERPID = 1457
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -85,7 +87,7 @@ PATH = /home/codycarmona/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/us
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1760,unix/ubuntu:/tmp/.ICE-unix/1760
+SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1669,unix/ubuntu:/tmp/.ICE-unix/1669
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -103,7 +105,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 57ecd72d5d0e4ce5ad7444602cec8057
+INVOCATION_ID = a8161803f3a84c55b7d1d300794d4f04
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/91/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -127,7 +129,7 @@ PWD = /home/codycarmona/Documents/GitHub/longest-common-subsequence
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1725
+SSH_AGENT_PID = 1634
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -179,7 +181,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-1790435a-a911-4e43-8594-79f4cc6ec666.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-fede7e52-aced-4aab-81e1-6287de967eb7.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -194,8 +196,6 @@ XDG_CURRENT_DESKTOP = Unity
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := make
-# environment
-OLDPWD = /home/codycarmona/Documents/GitHub
 # default
 .VARIABLES := 
 # automatic
@@ -227,11 +227,13 @@ SNAP_NAME = code
 # environment
 LC_ALL = C
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/1b5e0754_0fb1_4e8d_80b3_387820986e6d
+DBUS_STARTER_BUS_TYPE = session
+# environment
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/559ac100_c974_4980_bb30_b3d0556fc051
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.118
+GNOME_TERMINAL_SERVICE = :1.146
 # default
 SUFFIXES := 
 # environment
@@ -249,9 +251,11 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 4431
+VSCODE_PID = 4529
+# environment
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=a27ad272b0988684184f9a55622bf87e
 # variable set hash-table stats:
-# Load=120/1024=12%, Rehash=0, Collisions=15/145=10%
+# Load=121/1024=12%, Rehash=0, Collisions=15/146=10%
 
 # Pattern-specific Variable Values
 
@@ -271,41 +275,44 @@ VSCODE_PID = 4431
 
 dynamic.exe: dynamic.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-03-11 14:32:01.658993893
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'makefile', line 9):
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 10):
 	g++ -o dynamic.exe dynamic.o
+	rm dynamic.o
 
- 
-all: memorized.exe dynamic.exe
+all: memoized.exe dynamic.exe
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
-#  File has been updated.
-#  Successfully updated.
+#  File has not been updated.
 
 # Not a target:
+ 
 dynamic.cpp:
-#  Implicit rule search has been done.
-#  Last modified 2022-03-11 14:15:24.692859765
-#  File has been updated.
-#  Successfully updated.
-
-memorized.o: memorized.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-03-11 14:29:57.363225981
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'makefile', line 6):
-	g++ -std=c++11 -Wall -Wextra -c memorized.cpp
+#  Modification time never checked.
+#  File has not been updated.
+
+memorized.o: memoized.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 7):
+	g++ -std=c++11 -Wall -Wextra -c memoized.cpp
 
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-03-11 14:31:58.067000598
+#  Last modified 2022-03-11 23:01:02.605864549
 #  File has been updated.
 #  Successfully updated.
+
+# Not a target:
+memoized.o:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
 
 # Not a target:
 .DEFAULT:
@@ -315,48 +322,39 @@ makefile:
 
 dynamic.o: dynamic.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-03-11 14:32:01.598994004
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'makefile', line 11):
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 13):
 	g++ -std=c++11 -Wall -Wextra -c dynamic.cpp
 
-clean:
+memoized.exe: memoized.o
+#  Implicit rule search has not been done.
+#  Last modified 2022-03-11 22:30:46.108170406
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 4):
+	g++ -o memoized.exe memoized.o
+	rm memoized.o
+
+# Not a target:
+memoized.cpp:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'makefile', line 14):
-	rm *.o dynamic.o
-
-memorized.exe: memorized.o
-#  Implicit rule search has not been done.
-#  Last modified 2022-03-11 14:29:57.427225862
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'makefile', line 4):
-	g++ -o memorized.exe memorized.o
-
-# Not a target:
-memorized.cpp:
-#  Implicit rule search has been done.
-#  Last modified 2022-03-11 14:15:24.696859758
-#  File has been updated.
-#  Successfully updated.
 
 # files hash-table stats:
-# Load=11/1024=1%, Rehash=0, Collisions=0/32=0%
+# Load=11/1024=1%, Rehash=0, Collisions=0/31=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 20 / storage = 202 B / avg = 10 B
-# current buf: size = 8162 B / used = 202 B / count = 20 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 22 / storage = 234 B / avg = 10 B
+# current buf: size = 8162 B / used = 234 B / count = 22 / avg = 10 B
 
-# strcache performance: lookups = 41 / hit rate = 51%
+# strcache performance: lookups = 39 / hit rate = 43%
 # hash-table stats:
-# Load=20/8192=0%, Rehash=0, Collisions=1/41=2%
-# Finished Make data base on Fri Mar 11 14:32:03 2022
+# Load=22/8192=0%, Rehash=0, Collisions=1/39=3%
+# Finished Make data base on Fri Mar 11 23:01:03 2022
 
  
